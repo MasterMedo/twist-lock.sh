@@ -4,19 +4,21 @@
 2. applies a certain transformation on the image
 3. starts i3 lock with the created image
 
-## current features
+## effects ordered by speed
 
 ### original
 ![original](./img/original.png)
-### blur
-![blur](./img/blur.png)
-### pixelate
+### sample 0.523 sec
+![sample](./img/sample.png)
+### pixelate 0.541 sec
 ![pixelate](./img/pixelate.png)
-###	swirl
-![swirl](./img/swirl.png)
-### spread
+### spread 1.347 sec
 ![spread](./img/spread.png)
+###	swirl 1.366 sec
+![swirl](./img/swirl.png)
+### blur 1.664 sec
+![blur](./img/blur.png)
 
-### problems
-- It's slow, very slow, for now at least. max: ~900ms to lock the screen, depends on the effect
-- Has no visual input for typing the password, if you mess up it's faster to spam backspace than to wait for the cooldown
+### info
+- only two fast effects atm
+- read man pages for each command
