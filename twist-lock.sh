@@ -1,45 +1,52 @@
 #!/bin/bash
+# dependencies: i3lock, scrot, imagemagick, xorg-xbacklight (xbacklight)
 
-# Dependencies: i3lock, scrot, imagemagick, xorg-xbacklight (xbacklight)
+start=`date +%s%N`
+# choose where the image will be temporarily stored
+img=/tmp/i3lock.png
 
-# Choose where the image will be temporarily stored
-IMAGE=/tmp/i3lock.png
+# take screenshot
+scrot -z $img # 0.205 sec
 
-# Take screenshot
-scrot -z $IMAGE
+# possible effects that can be applied to the image
+sample="sample 352x240 -sample 1920x1080" 									# 0.262 sec
+pixelate="scale 10% -scale 1000%" 													# 0.277 sec
+spread="spread 5" 																					# 1.012 sec
+swirl="bordercolor Black -border 100 -swirl 300 -shave 100"	# 1.085 sec
+blur="blur 18,5" 																						# 1.514 sec
+accent="-contrast-stretch 2%" 															# always on
+darken="-fill black -colorize 25%"													# always on
 
-# Possible effects that can be applied to the image
-BLUR="blur 18,5"
-PIXELATE="scale 10% -scale 1000%"
-SWIRL="bordercolor Black -border 100 -swirl 300 -shave 100"
-SPREAD="spread 5"
-ACCENT="-contrast-stretch 2%" 			# Always on
-DARKEN="-fill black -colorize 25%"	# Always on
+# list of chosen effects to be applied to the image
+effects=(	"${sample}" "${pixelate}" "${spread}" "${swirl}" "${blur}" ) # all effects
+# effects=( "${sample}" "${pixelate}" ) # fast effects
 
-# List of chosen effects to be applied to the image
-EFFECTS=(	"${BLUR}" "${PIXELATE}" "${SWIRL}" "${SPREAD}" )
+# random effect from the list of chosen effects
+effect=-$(shuf -n1 -e "${effects[@]}") # 0.00127 sec
+# effect="${sample}" # specific effect
 
-# Random effect from list of chosen effects
-EFFECT=$(shuf -n1 -e "${EFFECTS[@]}")
+# apply effect on the image
+convert $img $effect $accent $darken $img
 
-# Applying the random effect, accent and dimming on the taken screenshot
-convert $IMAGE -$EFFECT $ACCENT $DARKEN $IMAGE
+# get current screen brightness
+screen_brightness=$(xbacklight -get) # 0.00225 sec
 
-# Get current screen brightness
-screen_brightness=$(xbacklight -get)
+# lower screen brightness by 80%
+xbacklight -dec 80 & # 0.00063 sec
 
-# Lower screen brightness by 80%
-xbacklight -dec 80 -time 500 &
+# create the image overlay and locking the screen
+i3lock -nuef -i $img # [0.05, 0.08] sec, depends on size
 
-# Creating the image overlay and locking the screen
-i3lock -nuef -i $IMAGE
+# return screen brightness to what it was
+xbacklight -set $screen_brightness -time 500 &
 
-# Return screen brightness to what it was
-xbacklight -set $screen_brightness -time 1000 &
+# remove the image after the screen has been unlocked
+rm $img
 
-# Removing the image after the screen has been unlocked
-rm $IMAGE
+# get image brightness - possible later use for darkening or brightening the image
+# img_brightness=$(convert $img -colorspace Gray -format "%[fx:image.mean]" info:)
 
-# Get image brightness - possible later use for darkening or brightening the image
-# img_brightness=$(convert $IMAGE -colorspace Gray -format "%[fx:image.mean]" info:)
-
+# used for time measurement
+# start=`date +%s%N`
+# end=`date +%s%N`
+# echo $((end-start))
