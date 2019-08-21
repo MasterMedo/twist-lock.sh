@@ -10,19 +10,20 @@ scrot -z $img # 0.205 sec
 # possible effects that can be applied to the image
 sample="sample 352x240 -sample 1920x1080" # 0.262 sec
 pixelate="scale 10% -scale 1000%" # 0.277 sec
+resize="scale 10% -resize 1000%" # 1.011 sec
 spread="spread 5" # 1.012 sec
 swirl="bordercolor Black -border 100 -swirl 300 -shave 100" # 1.085 sec
-blur="blur 18,5" # 1.514 sec
+blur="blur 18,5" # 1.314 sec
 accent="-contrast-stretch 2%" # always on
 darken="-fill black -colorize 25%" # always on
 
 # list of chosen effects to be applied to the image
-effects=( "${sample}" "${pixelate}" "${spread}" "${swirl}" "${blur}" ) # all effects
+effects=( "${sample}" "${pixelate}" "${spread}" "${swirl}" "${blur}" "${resize}" ) # all effects
 # effects=( "${sample}" "${pixelate}" ) # fast effects
+# effects=( "${resize}" ) # test effects
 
 # random effect from the list of chosen effects
 effect=-$(shuf -n1 -e "${effects[@]}") # 0.00127 sec
-# effect="${sample}" # specific effect
 
 # apply effect on the image
 convert $img $effect $accent $darken $img

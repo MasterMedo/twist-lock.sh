@@ -12,13 +12,20 @@
 ![sample](./img/sample.png)
 ### pixelate 0.541 sec
 ![pixelate](./img/pixelate.png)
+### resize 1.346 sec
+![resize](./img/resize.png)
 ### spread 1.347 sec
 ![spread](./img/spread.png)
 ###	swirl 1.366 sec
 ![swirl](./img/swirl.png)
-### blur 1.664 sec
+### blur 1.464 sec
 ![blur](./img/blur.png)
 
 ### info
 - only two fast effects atm
 - read man pages for each command
+
+### tested on
+- CPU: Intel i7-6600U (4) @ 3.400GHz
+- GPU: Intel Skylake GT2 [HD Graphics 520]
+- RAM: 15907MiB
