@@ -8,22 +8,16 @@
 
 ### original
 ![original](./img/original.png)
-### sample 0.523 sec
+### sample 0.399 sec
 ![sample](./img/sample.png)
-### pixelate 0.541 sec
+### pixelate 0.594 sec
 ![pixelate](./img/pixelate.png)
-### resize 1.346 sec
-![resize](./img/resize.png)
-### spread 1.347 sec
+### spread 0.614 sec
 ![spread](./img/spread.png)
-###	swirl 1.366 sec
+###	swirl 0.858 sec
 ![swirl](./img/swirl.png)
-### blur 1.464 sec
+### blur 0.860 sec
 ![blur](./img/blur.png)
-
-### info
-- only two fast effects atm
-- read man pages for each command
 
 ### tested on
 - CPU: Intel i7-6600U (4) @ 3.400GHz
