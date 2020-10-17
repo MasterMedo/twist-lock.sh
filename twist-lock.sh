@@ -30,8 +30,8 @@ convert $img $effect $accent $colorize $img
 # get current screen brightness
 screen_brightness=$(xbacklight -get)
 
-# lower screen brightness by 80%
-xbacklight -dec 80 &
+# set screen brightness to 20%
+xbacklight -set 20 &
 
 # create the image overlay and locking the screen
 i3lock -nuef -t -i $img
